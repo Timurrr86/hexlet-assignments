@@ -75,7 +75,11 @@ public class UsersServlet extends HttpServlet {
                 throws IOException, ServletException {
 
         // BEGIN
-        
+        // Сохраняем атрибут в запросе. Так мы сможем передать данные в шаблон
+        request.setAttribute("users", users);
+        // Передаем управление в шаблон
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/users.jsp");
+        requestDispatcher.forward(request, response);
         // END
     }
 
@@ -95,7 +99,11 @@ public class UsersServlet extends HttpServlet {
             return;
         }
         // BEGIN
-        
+        // Сохраняем атрибут в запросе. Так мы сможем передать данные в шаблон
+        request.setAttribute("user", user);
+        // Передаем управление в шаблон
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/show.jsp");
+        requestDispatcher.forward(request, response);
         // END
     }
 
@@ -112,7 +120,11 @@ public class UsersServlet extends HttpServlet {
             return;
         }
         // BEGIN
-        
+        // Сохраняем атрибут в запросе. Так мы сможем передать данные в шаблон
+        request.setAttribute("user", user);
+        // Передаем управление в шаблон
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/delete.jsp");
+        requestDispatcher.forward(request, response);
         // END
     }
 
@@ -129,7 +141,7 @@ public class UsersServlet extends HttpServlet {
             return;
         }
         // BEGIN
-        
+        users.remove(user);
         // END
 
     }

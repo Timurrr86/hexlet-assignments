@@ -32,7 +32,7 @@ public class App {
 
         // BEGIN
         tomcat.addServlet(ctx, UsersServlet.class.getSimpleName(), new UsersServlet());
-        ctx.addServletMappingDecoded("", UsersServlet.class.getSimpleName());
+        ctx.addServletMappingDecoded("/users/*", UsersServlet.class.getSimpleName());
         // END
 
         return tomcat;
