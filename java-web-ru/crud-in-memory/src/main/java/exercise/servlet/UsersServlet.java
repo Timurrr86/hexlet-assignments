@@ -125,7 +125,9 @@ public class UsersServlet extends HttpServlet {
                  throws IOException, ServletException {
 
         // BEGIN
+        Map<String, String> user = new HashMap<>();
         request.setAttribute("user", user);
+        request.setAttribute("error", "");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new.jsp");
         requestDispatcher.forward(request, response);
         // END
@@ -136,14 +138,25 @@ public class UsersServlet extends HttpServlet {
                  throws IOException, ServletException {
 
         // BEGIN
-        String userName = request.getParameter("fullName");
-        if (userName == null) {
-            response.sendError(HttpServletResponse.SC_NOT_FOUND, "such user cannot be added");
-        } else {
+        Map<String, String> user = new HashMap<>();
+        String id = getNextId();
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        if (firstName.isEmpty() || lastName.isEmpty()) {
             request.setAttribute("user", user);
+            request.setAttribute("error", "Имя пользолвателя не может быть пустым");
             RequestDispatcher requestDispatcher = request.getRequestDispatcher("/new.jsp");
+            response.setStatus(422);
             requestDispatcher.forward(request, response);
+            return;
         }
+        user.put("id", id);
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("email", email);
+        users.add(user);
+        response.sendRedirect("/users");
         // END
     }
 
@@ -162,6 +175,7 @@ public class UsersServlet extends HttpServlet {
 
         // BEGIN
         request.setAttribute("user", user);
+        request.setAttribute("error", "");
         RequestDispatcher requestDispatcher = request.getRequestDispatcher("/edit.jsp");
         requestDispatcher.forward(request, response);
         // END
@@ -181,9 +195,21 @@ public class UsersServlet extends HttpServlet {
         }
 
         // BEGIN
-        request.setAttribute("user", user);
-        RequestDispatcher requestDispatcher = request.getRequestDispatcher("/edit.jsp");
-        requestDispatcher.forward(request, response);
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String email = request.getParameter("email");
+        if (firstName.isEmpty() || lastName.isEmpty()) {
+            request.setAttribute("user", user);
+            request.setAttribute("error", "Имя пользолвателя не может быть пустым");
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/edit.jsp");
+            response.setStatus(422);
+            requestDispatcher.forward(request, response);
+            return;
+        }
+        user.put("firstName", firstName);
+        user.put("lastName", lastName);
+        user.put("email", email);
+        response.sendRedirect("/users");
         // END
     }
 
