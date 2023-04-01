@@ -56,21 +56,18 @@ public class SessionServlet extends HttpServlet {
 
         // BEGIN
         HttpSession session = request.getSession();
+        Map<String, String> user = users.findByEmail(request.getParameter("email"));
+        if (user == null || !request.getParameter("password").equals("password")) {
+            RequestDispatcher requestDispatcher = request.getRequestDispatcher("/login.jsp");
+            request.setAttribute("user", user);
+            session.setAttribute("flash", "Неверные логин или пароль");
+            response.setStatus(422);
+            requestDispatcher.forward(request, response);
+            return;
+        }
 
-        // Получаем пользователя по логину
-        Map<String, String> user = users.findByEmail((String) session.getAttribute("email"));
-
-        // Далее нужно проверить, зарегистрирован ли такой пользователь
-
-        // Установка атрибутов сессии
-        // Вход в систему сводится к записи данных пользователя в сессию
-        session.setAttribute("user", user);
-        // Механизм работы флеш-сообщений тоже основан на сессии
-        // Устанавливаем в сессию атрибут с текстом сообщения
-        // Далее мы сможем получить эти данные в шаблонах
+        session.setAttribute("userId", user.get("id"));
         session.setAttribute("flash", "Вы успешно вошли");
-
-        // Выполняем редирект на главную страницу
         response.sendRedirect("/");
         // END
     }
@@ -82,6 +79,7 @@ public class SessionServlet extends HttpServlet {
         // BEGIN
         HttpSession session = request.getSession();
         session.removeAttribute("userId");
+        session.setAttribute("flash", "Вы успешно вышли");
         response.sendRedirect("/");
         // END
     }
