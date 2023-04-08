@@ -14,9 +14,9 @@ layout:decorate="~{layouts/application.html}">
     </thead>
     <tbody>
     <div class="container">
-      <tr th:object="${article}">
-        <td th:text="*{title}"></td>
-        <td th:text="*{body}"></td>
+      <tr>
+        <td th:text="${article.get('title')}"></td>
+        <td th:text="${article.get('body')}"></td>
       </tr>
     </div>
   </table>

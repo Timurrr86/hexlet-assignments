@@ -71,7 +71,7 @@ public class ArticlesServlet extends HttpServlet {
         int articlesPerPage = 10;
         int page = request.getParameter("page") == null ? 1 : Integer.parseInt(request.getParameter("page"));
         int offset = (page - 1) * articlesPerPage;
-        String query = "SELECT id, title, body FROM articles LIMIT ? OFFSET ?";
+        String query = "SELECT id, title, body FROM articles ORDER BY id LIMIT ? OFFSET ?";
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
@@ -113,10 +113,7 @@ public class ArticlesServlet extends HttpServlet {
 
         try {
             PreparedStatement statement = connection.prepareStatement(query);
-
-            statement.setInt(1, Integer.parseInt(id));
-
-
+            statement.setString(1, id);
             ResultSet rs = statement.executeQuery();
 
             while (rs.next()) {
