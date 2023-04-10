@@ -192,7 +192,20 @@ public class ArticlesServlet extends HttpServlet {
         Connection connection = (Connection) context.getAttribute("dbConnection");
 
         // BEGIN
-        
+        String query = "INSERT INTO articles (title, body) VALUES (?, ?)";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, title);
+            statement.setString(2, body);
+
+            // Выполняем запрос в базу данных
+            statement.execute();
+
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         // END
 
         session.setAttribute("flash", "Статья успешно создана");
@@ -209,7 +222,13 @@ public class ArticlesServlet extends HttpServlet {
         String id = getId(request);
 
         // BEGIN
-        
+        Map<String, String> article;
+        try {
+            article = getArticleById(id, connection);
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         // END
 
         request.setAttribute("article", article);
@@ -229,7 +248,21 @@ public class ArticlesServlet extends HttpServlet {
         String body = request.getParameter("body");
 
         // BEGIN
-        
+        String query = "UPDATE articles SET title=?, body = ? WHERE id=?";
+
+        try {
+            // Получаем запрос
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, title);
+            statement.setString(2, body);
+            statement.setString(3, id);
+            // Выполняем запрос
+            statement.execute();
+
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         // END
 
         session.setAttribute("flash", "Статья успешно изменена");
@@ -246,7 +279,13 @@ public class ArticlesServlet extends HttpServlet {
         String id = getId(request);
 
         // BEGIN
-        
+        Map<String, String> article;
+        try {
+            article = getArticleById(id, connection);
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         // END
 
         request.setAttribute("article", article);
@@ -264,7 +303,17 @@ public class ArticlesServlet extends HttpServlet {
         String id = getId(request);
 
         // BEGIN
-        
+        String query = "DELETE FROM articles WHERE id=?";
+
+        try {
+            PreparedStatement statement = connection.prepareStatement(query);
+            statement.setString(1, id);
+            statement.execute();
+
+        } catch (SQLException e) {
+            response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            return;
+        }
         // END
 
         session.setAttribute("flash", "Статья успешно удалена");
