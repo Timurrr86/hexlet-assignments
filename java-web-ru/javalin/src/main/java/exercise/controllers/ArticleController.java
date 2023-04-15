@@ -17,11 +17,11 @@ public final class ArticleController {
         int offset = (page - 1) * rowsPerPage;
 
         PagedList<Article> pagedArticles = new QArticle()
-            .setFirstRow(offset)
-            .setMaxRows(rowsPerPage)
-            .orderBy()
+                .setFirstRow(offset)
+                .setMaxRows(rowsPerPage)
+                .orderBy()
                 .id.asc()
-            .findPagedList();
+                .findPagedList();
 
         List<Article> articles = pagedArticles.getList();
 
@@ -42,8 +42,8 @@ public final class ArticleController {
         long categoryId = ctx.formParamAsClass("categoryId", Long.class).getOrDefault(null);
 
         Category category = new QCategory()
-            .id.equalTo(categoryId)
-            .findOne();
+                .id.equalTo(categoryId)
+                .findOne();
 
         Article article = new Article(title, body, category);
         article.save();
@@ -56,8 +56,8 @@ public final class ArticleController {
         long id = ctx.pathParamAsClass("id", Long.class).getOrDefault(null);
 
         Article article = new QArticle()
-            .id.equalTo(id)
-            .findOne();
+                .id.equalTo(id)
+                .findOne();
 
         ctx.attribute("article", article);
         ctx.render("articles/show.html");
