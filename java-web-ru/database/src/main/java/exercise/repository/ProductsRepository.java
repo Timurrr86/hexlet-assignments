@@ -13,7 +13,7 @@ public class ProductsRepository extends BaseRepository {
 
     // BEGIN
     public static void save(Product product) throws SQLException {
-        String sql = "INSERT INTO product (title, price) VALUES (?, ?)";
+        String sql = "INSERT INTO products (title, price) VALUES (?, ?)";
         try (var conn = dataSource.getConnection();
              var preparedStatement = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, product.getTitle());
