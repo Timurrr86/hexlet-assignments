@@ -12,15 +12,17 @@ public class Application {
         // BEGIN
         for (Method method : Address.class.getDeclaredMethods()) {
             if (method.isAnnotationPresent(Inspect.class)) {
+                System.out.println("Method "
+                        + method.getName()
+                        + " returns a value of type "
+                        + method.getReturnType().getSimpleName()
+            );
                 try {
-                    // Выполняем метод с аннотацией LogExecutionTime
                     method.invoke(address);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
-            System.out.println("Method getCity returns a value of type String");
-            System.out.println("Method getPostalCode returns a value of type int");
         }
 
         // END
