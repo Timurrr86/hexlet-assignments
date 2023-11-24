@@ -28,7 +28,7 @@ public class PeopleController {
         return personRepository.findAll().stream().skip((page - 1) * limit).limit(limit).toList();
     }
 
-    @PostMapping("/person")
+    @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Person create(@RequestBody Person person) {
         personRepository.save(person);
