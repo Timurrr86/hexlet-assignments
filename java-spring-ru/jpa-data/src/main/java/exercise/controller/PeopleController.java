@@ -2,15 +2,8 @@ package exercise.controller;
 
 import exercise.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
@@ -29,9 +22,15 @@ public class PeopleController {
     }
 
     // BEGIN
+    @GetMapping
+    public List<Person> index(@RequestParam(defaultValue = "1") Integer page,
+                              @RequestParam(defaultValue = "10") Integer limit) {
+        return personRepository.findAll().stream().skip((page - 1) * limit).limit(limit).toList();
+    }
+
     @PostMapping("/persons")
     @ResponseStatus(HttpStatus.CREATED)
-    Person create(@Valid @RequestBody Person person) {
+    public Person create(@RequestBody Person person) {
         personRepository.save(person);
         return person;
     }
