@@ -38,7 +38,6 @@ public class ProductsController {
 
     // BEGIN
     @GetMapping("/products/{id}")
-    @ResponseStatus(HttpStatus.OK)
     Product show(@PathVariable Long id) {
         return productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Product with id " + id + " not found"));
