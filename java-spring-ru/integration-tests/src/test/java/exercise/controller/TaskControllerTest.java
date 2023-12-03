@@ -101,7 +101,7 @@ class ApplicationTest {
         var task = generateTask();
         taskRepository.save(task);
 
-        mockMvc.perform(delete("/tasks/" + task.getId()))
+        mockMvc.perform(delete("/tasks/{id}", task.getId()))
                 .andExpect(status().isOk());
 
         assertThat(taskRepository.findAll()).isEmpty();
