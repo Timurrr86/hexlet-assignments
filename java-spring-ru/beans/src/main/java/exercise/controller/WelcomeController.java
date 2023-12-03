@@ -14,7 +14,7 @@ public class WelcomeController {
 
     @GetMapping(path = "/welcome")
     public String welcome() {
-        var answer = "It's " + Daytime.getName() + " now! Welcome to spring!";
+        var answer = "It's " + daytime.getName() + " now! Welcome to spring!";
         return answer;
     }
 
