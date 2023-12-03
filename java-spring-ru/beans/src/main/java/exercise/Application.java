@@ -28,8 +28,10 @@ public class Application {
     public Daytime daytime() {
         var currentHour = LocalDateTime.now().getHour();
         if (currentHour >= 6 && currentHour <= 22) {
-                return new Day();}
-                else {return new Night();}
+                return new Day();
+        } else {
+            return new Night();
+        }
     }
     // END
 }
