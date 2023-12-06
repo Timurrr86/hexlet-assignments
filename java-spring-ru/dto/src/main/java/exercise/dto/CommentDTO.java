@@ -9,7 +9,6 @@ import lombok.Setter;
 public class CommentDTO {
     private long id;
 
-    private long postId;
     private String body;
 }
 // END
