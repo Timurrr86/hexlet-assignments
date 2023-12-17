@@ -55,7 +55,7 @@ public class ProductsController {
     // BEGIN
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDTO update(@RequestBody @Valid ProductUpdateDTO productData, @PathVariable Long id) {
+    public ProductDTO update(@RequestBody ProductUpdateDTO productData, @PathVariable Long id) {
         var product = toEntity(productData);
         productRepository.save(product);
         var productDto = toDTO(product);
