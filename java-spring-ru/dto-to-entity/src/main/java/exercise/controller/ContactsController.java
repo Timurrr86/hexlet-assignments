@@ -2,7 +2,10 @@ package exercise.controller;
 
 import exercise.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.http.HttpStatus;
 
 import exercise.model.Contact;
@@ -10,7 +13,7 @@ import exercise.repository.ContactRepository;
 import exercise.dto.ContactDTO;
 import exercise.dto.ContactCreateDTO;
 
-import java.time.LocalDate;
+//import java.time.LocalDate;
 
 @RestController
 @RequestMapping("/contacts")
@@ -21,14 +24,14 @@ public class ContactsController {
 
     // BEGIN
     @ResponseStatus(HttpStatus.OK)
-    ContactDTO Show(@PathVariable Long id) {
+    ContactDTO show(@PathVariable Long id) {
         var contact = contactRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(("Not Found: " + id)));
         var contactDTO = toDTO(contact);
         return contactDTO;
     }
 
-    @PostMapping("/contacts")
+    @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
     ContactDTO create(@RequestBody ContactCreateDTO contactData) {
         var contact = toEntity(contactData);
