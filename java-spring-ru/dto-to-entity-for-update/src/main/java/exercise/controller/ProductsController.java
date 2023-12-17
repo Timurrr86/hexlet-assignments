@@ -1,6 +1,7 @@
 package exercise.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -55,7 +56,7 @@ public class ProductsController {
     // BEGIN
     @PutMapping(path = "/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ProductDTO update(@RequestBody ProductUpdateDTO productData, @PathVariable Long id) {
+    public ProductDTO update(@RequestBody @Validated ProductUpdateDTO productData, @PathVariable Long id) {
         var product = productRepository.findById(id)
                 .orElseThrow(()->(new ResourceNotFoundException("Not Found")));
         toEntity(productData, product);
