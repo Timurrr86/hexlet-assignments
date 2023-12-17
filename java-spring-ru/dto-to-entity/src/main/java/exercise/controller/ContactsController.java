@@ -48,7 +48,7 @@ public class ContactsController {
         dto.setFirstName(contact.getFirstName());
         dto.setLastName(contact.getLastName());
         dto.setPhone(contact.getPhone());
-        dto.setCreatedAt(contact.getcreatedAt());
+        dto.setCreatedAt(contact.getCreatedAt());
     }
 
     private Contact toEntity(ContactCreateDTO contactDto) {
