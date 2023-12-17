@@ -38,8 +38,8 @@ public class ContactsController {
     ContactDTO create(@RequestBody ContactCreateDTO contactData) {
         var contact = toEntity(contactData);
         contactRepository.save(contact);
-        var contactDTO = toDTO(contact);
-        return contactDTO;
+        var contactDto = toDTO(contact);
+        return contactDto;
     }
 
     private ContactDTO toDTO(Contact contact) {
