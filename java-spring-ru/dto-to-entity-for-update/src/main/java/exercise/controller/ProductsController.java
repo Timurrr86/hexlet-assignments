@@ -65,9 +65,10 @@ public class ProductsController {
         return productDto;
     }
 
-    private Product toEntity(ProductUpdateDTO productDto, Product product) {
-        product.setTitle(productDto.getTitle());
-        product.setPrice(productDto.getPrice());
+    private Product toEntity(ProductUpdateDTO productUpdateDto, Product productDto) {
+        var product = new Product();
+        product.setTitle(productUpdateDto.getTitle());
+        product.setPrice(productUpdateDto.getPrice());
         return product;
     }
     // END
