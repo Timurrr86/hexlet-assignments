@@ -61,6 +61,12 @@ public class ProductsController {
         var productDto = toDTO(product);
         return productDto;
     }
+
+    private Product toEntity(ProductUpdateDTO productDto, Product product) {
+        product.setTitle(productDto.getTitle());
+        product.setPrice(productDto.getPrice());
+        return product;
+    }
     // END
 
     private Product toEntity(ProductCreateDTO productDto) {
