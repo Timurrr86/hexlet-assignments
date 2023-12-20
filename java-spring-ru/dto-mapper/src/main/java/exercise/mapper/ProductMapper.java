@@ -22,7 +22,7 @@ public abstract class ProductMapper {
     @Mapping(source = "vendorCode", target = "barcode")
     public abstract Product map(ProductCreateDTO dto);
 
-    @Mapping( target= "title", source = "name")
+    @Mapping(target = "title", source = "name")
     @Mapping(target = "price", source = "cost")
     @Mapping(target = "vendorCode", source = "barcode")
     public abstract ProductDTO map(Product entity);
