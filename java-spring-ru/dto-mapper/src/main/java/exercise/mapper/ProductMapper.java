@@ -8,6 +8,8 @@ import org.mapstruct.MappingConstants;
 import org.mapstruct.MappingTarget;
 import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.mapstruct.ReportingPolicy;
+import org.mapstruct.Mapping;
+
 
 // BEGIN
 @Mapper(
@@ -28,6 +30,6 @@ public abstract class ProductMapper {
     public abstract ProductDTO map(Product entity);
 
     @Mapping(source = "price", target = "cost")
-    public abstract void update(ProductUpdateDTO dto, @MappingTarget Post model);
+    public abstract void update(ProductUpdateDTO dto, @MappingTarget Product entity);
 }
 // END

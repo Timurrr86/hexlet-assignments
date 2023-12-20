@@ -40,34 +40,32 @@ public class ProductsController {
 
     @PostMapping("")
     @ResponseStatus(HttpStatus.CREATED)
-    ProductDTO create(@RequestBody ProductCreateDTO productData) {
+    public ProductDTO create(@RequestBody ProductCreateDTO productCreateDTO) {
         // Преобразование в сущность
-        var product = productMapper.map(productData);
+        var product = productMapper.map(productCreateDTO);
         productRepository.save(product);
         // Преобразование в DTO
         var productDTO = productMapper.map(product);
         return productDTO;
     }
 
-    @PutMapping("/products/{id}")
+    @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ProductDTO update(@RequestBody @Validated ProductUpdateDTO productData, @PathVariable Long id) {
-        var product = repository.findById(id)
+    public ProductDTO update(@RequestBody @Validated ProductUpdateDTO productData, @PathVariable Long id) {
+        var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found"));
         productMapper.update(productData, product);
         productRepository.save(product);
-        var productDto = productMapper.map(product);
-        return productDto;
+        return productMapper.map(product);
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    ProductDTO show(@PathVariable Long id) {
+    public ProductDTO show(@PathVariable Long id) {
         var product = productRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not Found: " + id));
         // Преобразование в DTO
-        var productDTO = productMapper.map(product);
-        return productDTO;
+        return productMapper.map(product);
     }
     // END
 }
