@@ -1,0 +1,42 @@
+package exercise.dto;
+
+// BEGIN
+import jakarta.persistence.Column;
+
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
+import lombok.Getter;
+import lombok.Setter;
+import java.time.LocalDate;
+
+@Setter
+@Getter
+public class GuestCreateDTO {
+    private long id;
+
+    @NotBlank
+    private String name;
+
+    @Column(unique = true)
+    @Email
+    private String email;
+
+    @Size(min = 11, max = 13)
+    @Pattern(regexp = "\\+[0-9]")
+    private String phoneNumber;
+
+    @NotNull
+    @Size(min = 4)
+    private String clubCard;
+
+    @Future
+    private LocalDate cardValidUntil;
+
+    private LocalDate createdAt;
+}
+
+// END
