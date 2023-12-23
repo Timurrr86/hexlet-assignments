@@ -8,7 +8,9 @@ import jakarta.persistence.EntityListeners;
 import jakarta.persistence.GeneratedValue;
 import static jakarta.persistence.GenerationType.IDENTITY;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -34,7 +36,23 @@ public class Guest {
     private long id;
 
     // BEGIN
-    
+    @NotBlank
+    private String name;
+
+    @Column(unique = true)
+    @Email
+    private String email;
+
+    @Size(min = 11, max = 13)
+    @Pattern(regexp = "\\+[0-9]")
+    private String phoneNumber;
+
+    @NotNull
+    @Size(min = 4)
+    private String clubCard;
+
+    @Future
+    private LocalDate cardValidUntil;
     // END
 
     @CreatedDate
