@@ -53,8 +53,8 @@ public class GuestsController {
         var guest = guestMapper.map(guestCreateDTO);
         guestRepository.save(guest);
         // Преобразование в DTO
-        var DTO = guestMapper.map(guest);
-        return DTO;
+        var guestDto = guestMapper.map(guest);
+        return guestDto;
     }
     // END
 }
