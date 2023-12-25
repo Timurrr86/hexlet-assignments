@@ -10,7 +10,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CarUpdateDTO {
-    private long id;
     @NotNull
     private JsonNullable<String> model;
     @NotNull
