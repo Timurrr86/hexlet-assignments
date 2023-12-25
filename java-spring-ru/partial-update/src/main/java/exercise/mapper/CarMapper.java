@@ -21,12 +21,10 @@ import exercise.model.Car;
 )
 public abstract class CarMapper {
     // Остальные методы
-    public abstract void update(CarUpdateDTO dto, @MappingTarget Car model);
+    public abstract void update(CarUpdateDTO dto, @MappingTarget Car car);
 
     public abstract CarDTO map(Car car);
 
-    public abstract CarDTO map(CarDTO car);
-
-    public abstract CarDTO map(CarCreateDTO carData);
+    public abstract Car map(CarCreateDTO carData);
 }
 // END
