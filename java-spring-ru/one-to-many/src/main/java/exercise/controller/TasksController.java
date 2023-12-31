@@ -9,6 +9,7 @@ import exercise.mapper.TaskMapper;
 import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -32,6 +33,9 @@ public class TasksController {
 
     @Autowired
     private TaskMapper taskMapper;
+
+    @Autowired
+    public UserRepository userRepository;
 
     @GetMapping(path = "")
     public List<TaskDTO> index() {
@@ -59,8 +63,9 @@ public class TasksController {
         return taskDto;
     }
 
-    @PutMapping(path = "/{id}")
-    public TaskDTO update(@PathVariable long id, @RequestBody TaskUpdateDTO taskData) {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public TaskDTO update(@PathVariable long id, @RequestBody @Validated TaskUpdateDTO taskUpdateDTO) {
         var task = taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Not found"));
         var user = userRepository.findById(taskUpdateDTO.getAssigneeId())
