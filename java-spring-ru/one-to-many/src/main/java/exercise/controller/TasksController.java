@@ -6,6 +6,7 @@ import exercise.dto.TaskCreateDTO;
 import exercise.dto.TaskDTO;
 import exercise.dto.TaskUpdateDTO;
 import exercise.mapper.TaskMapper;
+import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -60,14 +61,19 @@ public class TasksController {
 
     @PutMapping(path = "/{id}")
     public TaskDTO update(@PathVariable long id, @RequestBody TaskUpdateDTO taskData) {
+        var task = taskRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Not found"));
+        var user = userRepository.findById(taskUpdateDTO.getAssigneeId())
+                .orElseThrow(() -> new ResourceNotFoundException("No Found"));
 
-        var car =  taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Car with id " + id + " not found"));
 
-        taskMapper.update(taskData, car);
-        taskRepository.save(car);
+        taskMapper.update(taskUpdateDTO, task);
 
-        return taskMapper.map(car);
+        task.setAssignee(user);
+
+        taskRepository.save(task);
+        var dto = taskMapper.map(task);
+        return dto;
     }
 
     @DeleteMapping("/{id}")
