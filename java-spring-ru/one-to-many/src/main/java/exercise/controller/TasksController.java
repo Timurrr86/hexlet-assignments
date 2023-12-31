@@ -2,10 +2,10 @@ package exercise.controller;
 
 import java.util.List;
 
-import exercise.dto.*;
+import exercise.dto.TaskCreateDTO;
+import exercise.dto.TaskDTO;
+import exercise.dto.TaskUpdateDTO;
 import exercise.mapper.TaskMapper;
-import exercise.mapper.UserMapper;
-import exercise.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -72,7 +72,7 @@ public class TasksController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void destroy(@PathVariable long id){
+    public void destroy(@PathVariable long id) {
         taskRepository.deleteById(id);
     }
     // END

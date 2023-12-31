@@ -1,8 +1,9 @@
 package exercise.mapper;
 
-import exercise.dto.*;
+import exercise.dto.TaskCreateDTO;
+import exercise.dto.TaskDTO;
 import exercise.model.Task;
-import exercise.model.User;
+import exercise.dto.TaskUpdateDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;
