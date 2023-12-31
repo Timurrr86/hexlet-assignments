@@ -44,8 +44,8 @@ public class TasksController {
     public TaskDTO show(@PathVariable long id) {
 
         var user =  taskRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
-        var taskDto = taskMapper.map(user);
+                .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
+        var taskDto = taskMapper.map(task);
         return taskDto;
     }
 
