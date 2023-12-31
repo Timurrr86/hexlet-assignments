@@ -43,7 +43,7 @@ public class TasksController {
     @GetMapping(path = "/{id}")
     public TaskDTO show(@PathVariable long id) {
 
-        var user =  taskRepository.findById(id)
+        var task =  taskRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Task with id " + id + " not found"));
         var taskDto = taskMapper.map(task);
         return taskDto;
@@ -68,6 +68,12 @@ public class TasksController {
         taskRepository.save(car);
 
         return taskMapper.map(car);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void destroy(@PathVariable long id){
+        taskRepository.deleteById(id);
     }
     // END
 }
