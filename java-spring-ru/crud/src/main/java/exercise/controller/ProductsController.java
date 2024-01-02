@@ -2,7 +2,10 @@ package exercise.controller;
 
 import java.util.List;
 
-import exercise.dto.*;
+
+import exercise.dto.ProductCreateDTO;
+import exercise.dto.ProductDTO;
+import exercise.dto.ProductUpdateDTO;
 import exercise.mapper.ProductMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
