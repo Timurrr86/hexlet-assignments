@@ -23,7 +23,7 @@ public abstract class TaskMapper {
     public abstract Task map(TaskCreateDTO dto);
     @Mapping(source = "assignee.id", target = "assigneeId")
     public abstract TaskDTO map(Task model);
-    public abstract void update(TaskUpdateDTO dto, @MappingTarget Task task);
+    public abstract void update(TaskUpdateDTO dto, @MappingTarget Task model);
     // END
 
 }

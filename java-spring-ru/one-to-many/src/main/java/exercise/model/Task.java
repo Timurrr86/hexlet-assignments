@@ -34,6 +34,14 @@ public class Task {
     @NotBlank
     private String description;
 
+    public User getAssignee() {
+        return assignee;
+    }
+
+    public void setAssignee(User assignee) {
+        this.assignee = assignee;
+    }
+
     @CreatedDate
     private LocalDate createdAt;
 

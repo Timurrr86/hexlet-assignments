@@ -8,6 +8,14 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TaskUpdateDTO {
+    public Long getAssigneeId() {
+        return assigneeId;
+    }
+
+    public void setAssigneeId(Long assigneeId) {
+        this.assigneeId = assigneeId;
+    }
+
     @NotNull
     private Long assigneeId;
 
