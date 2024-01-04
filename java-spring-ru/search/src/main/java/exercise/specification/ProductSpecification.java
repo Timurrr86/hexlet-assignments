@@ -46,7 +46,7 @@ public class ProductSpecification {
     private Specification<Product> withTitleCont(String titleCont) {
         return (root, query, cb) -> titleCont == null
                 ? cb.conjunction()
-                : cb.equal(root.get("titleCont"), titleCont);
+                : cb.equal(root.get("title"), titleCont);
     }
 }
 // END
