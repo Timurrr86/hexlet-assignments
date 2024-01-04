@@ -39,7 +39,7 @@ public class ProductsController {
     @Autowired
     private ProductSpecification specBuilder;
 
-    @GetMapping("/products")
+    @GetMapping("")
     @ResponseStatus(HttpStatus.OK)
     public List<ProductDTO> index(ProductParamsDTO params, @RequestParam(defaultValue = "1") int page) {
         var spec = specBuilder.build(params);
