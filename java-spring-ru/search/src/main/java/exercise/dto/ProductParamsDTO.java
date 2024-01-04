@@ -27,7 +27,7 @@ public class ProductParamsDTO {
         this.categoryId = categoryId;
     }
 
-    public Long getPriceLt() {
+    public Integer getPriceLt() {
         return priceLt;
     }
 
@@ -35,7 +35,7 @@ public class ProductParamsDTO {
         this.priceLt = priceLt;
     }
 
-    public Long getPriceGt() {
+    public Integer getPriceGt() {
         return priceGt;
     }
 

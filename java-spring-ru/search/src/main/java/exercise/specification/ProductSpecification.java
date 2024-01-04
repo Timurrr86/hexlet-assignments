@@ -15,28 +15,38 @@ public class ProductSpecification {
         return withCategoryId(params.getCategoryId())
                 .and(withPriceGt(params.getPriceGt())
                 .and(withPriceLt(params.getPriceLt())
-                .and(withRatingGt(params.getPriceGt())
+                .and(withRatingGt(params.getRatingGt())
                 .and(withTitleCont(params.getTitleCont())))));
     }
 
-    private Specification<Product> withCategoryId(Long productId) {
-        return (root, query, cb) -> productId == null ? cb.conjunction() : cb.equal(root.get("product").get("id"), productId);
+    private Specification<Product> withCategoryId(Long categoryId) {
+        return (root, query, cb) -> categoryId == null
+                ? cb.conjunction()
+                : cb.equal(root.get("category"), categoryId);
     }
 
-    private Specification<Product> withPriceGt(Long productId) {
-        return (root, query, cb) -> productId == null ? cb.conjunction() : cb.equal(root.get("product").get("id"), productId);
+    private Specification<Product> withPriceGt(Integer priceGt) {
+        return (root, query, cb) -> priceGt == null
+                ? cb.conjunction()
+                : cb.equal(root.get("price"), priceGt);
     }
 
-    private Specification<Product> withPriceLt(Long productId) {
-        return (root, query, cb) -> productId == null ? cb.conjunction() : cb.equal(root.get("product").get("id"), productId);
+    private Specification<Product> withPriceLt(Integer priceLt) {
+        return (root, query, cb) -> priceLt == null
+                ? cb.conjunction()
+                : cb.equal(root.get("price"), priceLt);
     }
 
-    private Specification<Product> withRatingGt(Long productId) {
-        return (root, query, cb) -> productId == null ? cb.conjunction() : cb.equal(root.get("product").get("id"), productId);
+    private Specification<Product> withRatingGt(Double rating) {
+        return (root, query, cb) -> rating == null
+                ? cb.conjunction()
+                : cb.equal(root.get("rating"), rating);
     }
 
-    private Specification<Product> withTitleCont(String productId) {
-        return (root, query, cb) -> productId == null ? cb.conjunction() : cb.equal(root.get("product").get("id"), productId);
+    private Specification<Product> withTitleCont(String titleCont) {
+        return (root, query, cb) -> titleCont == null
+                ? cb.conjunction()
+                : cb.equal(root.get("titleCont"), titleCont);
     }
 }
 // END
