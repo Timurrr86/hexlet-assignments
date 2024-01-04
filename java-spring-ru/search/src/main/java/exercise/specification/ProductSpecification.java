@@ -22,7 +22,7 @@ public class ProductSpecification {
     private Specification<Product> withCategoryId(Long categoryId) {
         return (root, query, cb) -> categoryId == null
                 ? cb.conjunction()
-                : cb.equal(root.get("category"), categoryId);
+                : cb.equal(root.get("category").get("id"), categoryId);
     }
 
     private Specification<Product> withPriceGt(Integer priceGt) {
