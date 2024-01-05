@@ -53,42 +53,40 @@ public class User implements BaseEntity, UserDetails {
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
     private List<Article> articles = new ArrayList<>();
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
+    // BEGIN
     @Override
     public String getPassword() {
-        return null;
+        return passwordDigest;
     }
 
     @Override
     public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return false;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return false;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return false;
+        return email;
     }
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
-    // BEGIN
-    
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<GrantedAuthority>();
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
     // END
 }
