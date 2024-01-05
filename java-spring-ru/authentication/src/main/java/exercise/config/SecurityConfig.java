@@ -11,24 +11,46 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import exercise.service.CustomUserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
 import org.springframework.web.servlet.handler.HandlerMappingIntrospector;
 
 // BEGIN
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    @Autowired
+    private JwtDecoder jwtDecoder;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
     private CustomUserDetailsService userService;
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, HandlerMappingIntrospector introspector)
+            throws Exception {
+        var mvcMatcherBuilder = new MvcRequestMatcher.Builder(introspector);
+        // По умолчанию все запрещено
+        return http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(auth -> auth
+                        // Разрешаем доступ только к /api/login чтобы аутентифцироваться и получить токен
+                        .requestMatchers(mvcMatcherBuilder.pattern("/api/login")).permitAll()
+                        .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/users")).permitAll()
+                        .anyRequest().authenticated())
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .oauth2ResourceServer((rs) -> rs.jwt((jwt) -> jwt.decoder(jwtDecoder)))
+                .httpBasic(Customizer.withDefaults())
+                .build();
+    }
 
     @Bean
     public AuthenticationManager authenticationManager(HttpSecurity http) throws Exception {
